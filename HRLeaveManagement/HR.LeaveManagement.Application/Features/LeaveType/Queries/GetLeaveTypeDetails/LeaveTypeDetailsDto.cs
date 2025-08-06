@@ -1,6 +1,6 @@
 ﻿namespace HR.LeaveManagement.Application.Features.LeaveType.Queries.GetAllLeaveType;
 
-public class GetLeaveTypesDto
+public class GetLeaveTypesDetailsDto
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
