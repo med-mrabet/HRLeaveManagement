@@ -20,16 +20,16 @@ namespace HR.LeaveManagement.Persistence.Configurations
                                 Id = 1,
                                 Name = "Vacation",
                                 DefaultDays = 10,
-                                CreatedDate = DateTime.Now,
-                                LastModifiedDate = DateTime.Now
+                                CreatedDate = new DateTime(2025, 8, 7, 15, 49, 1, 550, DateTimeKind.Local).AddTicks(290),
+                                LastModifiedDate = new DateTime(2025, 8, 9, 15, 49, 1, 550, DateTimeKind.Local).AddTicks(290)
                             },
                             new LeaveType
                             {
                                 Id = 2,
                                 Name = "Sick Leave",
                                 DefaultDays = 5,
-                                CreatedDate = DateTime.Now,
-                                LastModifiedDate = DateTime.Now
+                                CreatedDate = new DateTime(2025, 8, 7, 15, 49, 1, 550, DateTimeKind.Local).AddTicks(290),
+                                LastModifiedDate = new DateTime(2025, 8, 9, 15, 49, 1, 550, DateTimeKind.Local).AddTicks(290)
                             }
                         );
         }
