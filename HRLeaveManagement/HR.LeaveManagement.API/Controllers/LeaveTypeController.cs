@@ -1,4 +1,5 @@
 ﻿using HR.LeaveManagement.Application.Features.LeaveType.Command.CreateLeaveType;
+using HR.LeaveManagement.Application.Features.LeaveType.Command.UpdateLeaveType;
 using HR.LeaveManagement.Application.Features.LeaveType.Queries.GetAllLeaveType;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -51,15 +52,13 @@ namespace HR.LeaveManagement.API.Controllers
         }
 
         // PUT api/<LeaveTypeController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut()]
+        public async Task<bool> Put([FromBody] UpdateLeaveTypeDto request)
         {
+            var result = await _mediator.Send(new UpdateLeaveTypeCommand(request));
+            return result.isSuccess;
         }
 
-        // DELETE api/<LeaveTypeController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+
     }
 }
