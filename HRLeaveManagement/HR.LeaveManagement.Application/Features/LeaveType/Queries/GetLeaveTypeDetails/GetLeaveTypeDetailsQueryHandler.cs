@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using HR.LeaveManagement.Application.Contracts.Persistence;
+﻿using HR.LeaveManagement.Application.Contracts.Persistence;
 using HR.LeaveManagement.Application.Exceptions;
+using Mapster;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -13,11 +13,10 @@ namespace HR.LeaveManagement.Application.Features.LeaveType.Queries.GetAllLeaveT
     public class GetLeaveTypeDetailsQueryHandler : IRequestHandler<GetLeaveTypeDetailsQuery, GetLeaveTypesDetailsDto>
     {
         private readonly ILeaveTypeRepository _leaveTypeRepository;
-        private readonly IMapper _mapper;
 
-        public GetLeaveTypeDetailsQueryHandler(IMapper mapper , ILeaveTypeRepository leaveTypeRepository)
+        public GetLeaveTypeDetailsQueryHandler(ILeaveTypeRepository leaveTypeRepository)
         {
-            _mapper = mapper;
+        
             _leaveTypeRepository = leaveTypeRepository;
         }
 
@@ -29,7 +28,7 @@ namespace HR.LeaveManagement.Application.Features.LeaveType.Queries.GetAllLeaveT
             {
                 throw new NotFoundException(nameof(LeaveType),request.id);
             }
-            var mappedRequest = _mapper.Map<GetLeaveTypesDetailsDto>(leaveType);
+            var mappedRequest = leaveType.Adapt<GetLeaveTypesDetailsDto>();
 
             return  mappedRequest;
         }

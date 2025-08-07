@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using HR.LeaveManagement.Application.Contracts.Persistence;
+﻿using HR.LeaveManagement.Application.Contracts.Persistence;
 using HR.LeaveManagement.Application.Exceptions;
+using Mapster;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -12,12 +12,10 @@ namespace HR.LeaveManagement.Application.Features.LeaveType.Command.UpdateLeaveT
 {
     public class UpdateLeaveTypeCommandHandler : IRequestHandler<UpdateLeaveTypeCommand, UpdateLeaveTypeCommandResponse>
     {
-        private readonly IMapper _mapper;
         private readonly ILeaveTypeRepository _leaveTypeRepository;
 
-        public UpdateLeaveTypeCommandHandler(IMapper mapper, ILeaveTypeRepository leaveTypeRepository)
+        public UpdateLeaveTypeCommandHandler(ILeaveTypeRepository leaveTypeRepository)
         {
-            this._mapper = mapper;
             this._leaveTypeRepository = leaveTypeRepository;
         }
         public async Task<UpdateLeaveTypeCommandResponse> Handle(UpdateLeaveTypeCommand request, CancellationToken cancellationToken)
@@ -27,7 +25,7 @@ namespace HR.LeaveManagement.Application.Features.LeaveType.Command.UpdateLeaveT
             {
                 throw new NotFoundException(nameof(LeaveType), request.request.Id);
             }
-            var mappedData = _mapper.Map<Domain.LeaveType>(request.request);
+            var mappedData = request.request.Adapt<Domain.LeaveType>();
 
             mappedData.LastModifiedDate = DateTime.Now;
             await _leaveTypeRepository.UpdateAsync(mappedData);
